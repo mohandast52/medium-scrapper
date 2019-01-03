@@ -16,8 +16,8 @@
 
     angular.module('webScrapper')
         .controller("webScrapperController", [
-            '$scope', 'BlogDetailsFactory', '$http', '$q', '$timeout', '$window', '$document', 'DataShare',
-            function ($scope, BlogDetailsFactory, $http, $q, $timeout, $window, $document, DataShare) {
+            '$scope', 'BlogDetailsFactory', '$http', '$q', '$timeout', '$window', '$document', 'DataShare', '$rootScope',
+            function ($scope, BlogDetailsFactory, $http, $q, $timeout, $window, $document, DataShare, $rootScope) {
                 $scope.loader = true;
 
                 // 2 seconds delay
@@ -52,9 +52,10 @@
 
                 $scope.getBlog = function (blog_url) {
                     console.log(blog_url);
+                    $rootScope.blog_url = blog_url;
                     DataShare.update(blog_url);
                     console.log(DataShare.from_scrapper);
-
+                    console.log($rootScope.blog_url);
                     // BlogDetailsFactory.getSpecificBlog(blog_url).then(
                     //     function (data, status, headers, config) {
                     //         $scope.success = data.success;

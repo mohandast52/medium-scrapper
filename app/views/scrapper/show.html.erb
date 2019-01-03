@@ -31,9 +31,9 @@
                     )
                 </p>
             </div>
-            <a href="/blog" ng-click="getBlog(blog.blog_link)" class="blog-over-content">
+            <a href="/blog" target="_blank" ng-click="getBlog(blog.blog_link)" class="blog-over-content">
                 <div class="blog-overview-image">
-                    <img src="{{ blog.img_link }}" alt="" ng-class="{'no-image': blog.img_link == '' ||  blog.img_link == null}">
+                    <img src="{{ blog.img_link }}" ng-class="{'no-image': blog.img_link == '' ||  blog.img_link == null}">
                 </div>
                 <div class="blog-overview-title">
                     <h2 class="previewTitle">

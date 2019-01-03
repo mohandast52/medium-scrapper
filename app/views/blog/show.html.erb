@@ -1,0 +1,64 @@
+<div class="">
+    <div class="blogContainer postArticle-content" ng-controller="blogController">
+        <div ng-if="loader == true">
+            <%= render "loaderblog" %>
+        </div ng-if="loader == false">
+        <div ng-repeat="inner_data in datas">
+            <div ng-repeat="data in inner_data">
+                <h1 ng-if="data.type == 'h1'" class="{{ data.class }}">
+                    {{ data.value }}
+                </h1>
+
+                <h2 ng-if="data.type == 'h2'" class="{{ data.class }}">
+                    {{ data.value }}
+                </h2>
+
+                <h3 ng-if="data.type == 'h3'" class="{{ data.class }}">
+                    {{ data.value }}
+                </h3>
+
+                <h4 ng-if="data.type == 'h4'" class="{{ data.class }}">
+                    {{ data.value }}
+                </h4>
+
+                <figure ng-if="data.type == 'f'" class="{{ data.class }}">
+                    <img src="{{ data.value }}">
+                    <div ng-repeat="imageCaption in data.imageCaptions" ng-bind-html="imageCaption.caption | to_trusted"
+                        class="imageCaptionCustom">
+                    </div>
+                </figure>
+
+                <figure ng-if="data.type == 'if'" class="{{ data.class }}">
+                    <div ng-bind-html="data.value | to_trusted"></div>
+                </figure>
+
+                <p ng-if="data.type == 'p'" ng-bind-html="data.value | to_trusted" class="{{ data.class }}">
+                </p>
+
+                <pre ng-if="data.type == 'c'" ng-bind-html="data.value | to_trusted" class="{{ data.class }}">
+                </pre>
+
+                <blockquote ng-if="data.type == 'b'" class="{{ data.class }}">
+                    {{ data.value }}
+                </blockquote>
+
+                <blockquote ng-if="data.type == 'bh'" ng-bind-html="data.value | to_trusted" class="{{ data.class }}">
+                </blockquote>
+
+                <h3 ng-if="data.type == 'ul'">
+                    <div ng-repeat="listItem in data.items">
+                        <div ng-bind-html="listItem.item | to_trusted"></div>
+                    </div>
+                </h3>
+
+                <h3 ng-if="data.type == 'ol'">
+                    <div ng-repeat="listItem in data.items">
+                        <div ng-bind-html="listItem.item | to_trusted"></div>
+                    </div>
+                </h3>
+
+            </div>
+        </div>
+    </div>
+    <br><br>
+</div>

@@ -1,0 +1,487 @@
+// Place all the styles related to the blog controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+$main-width: 600px;
+$text-color: rgba(0, 0, 0, 0.84);
+
+html {
+    scroll-behavior: smooth;
+}
+
+// reuse
+body {
+    font-size: 16px;
+    color: $text-color;
+}
+
+p {
+    margin-bottom: 30px;
+}
+
+a {
+    text-decoration: underline !important;
+    color: $text-color !important;
+
+    &:hover {
+        color: $text-color;
+    }
+}
+
+blockquote,
+dd,
+dl,
+figure,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+menu,
+ol,
+p,
+pre,
+ul {
+    margin: 0;
+}
+
+// 
+.blogContainer {
+    width: $main-width !important;
+    margin: 0 auto;
+}
+
+.graf--leading {
+    font-weight: 600;
+}
+
+.graf--title {
+    font-style: normal;
+    font-size: 30px !important;
+    letter-spacing: -.015em;
+    padding-top: 5px !important;
+}
+
+.graf--subtitle {
+    margin-top: 5px;
+    margin-bottom: 22px;
+    color: rgba(0, 0, 0, .54) !important;
+    font-size: 20px !important;
+}
+
+.title-image {
+    height: 100%;
+    max-height: 600px;
+    width: 100%;
+    object-fit: cover;
+}
+
+
+
+.graf--pullquote {
+    margin-top: 64px;
+}
+
+.graf--pullquote {
+    font-family: medium-content-slab-serif-font, Georgia, Cambria, "Times New Roman", Times, serif;
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.48;
+    letter-spacing: -.012em;
+}
+
+.graf--pullquote {
+    color: rgba(0, 0, 0, .68);
+    border: none;
+    padding: 0;
+    padding-left: 50px;
+    text-align: left;
+}
+
+// p
+.graf--p.graf-after--pullquote {
+    margin-top: 54px;
+}
+
+.postArticle-content .graf--p {
+    margin-top: 38px;
+}
+
+.postArticle-content .graf--p {
+    letter-spacing: .01rem;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.58;
+    letter-spacing: -.003em;
+}
+
+.postArticle-content .graf--p {
+    margin-bottom: 0;
+}
+
+// h2
+
+.graf--h4.graf-after--h3 {
+    margin-top: 31px;
+}
+
+.graf--subtitle.graf-after--h2,
+.graf--subtitle.graf-after--h3 {
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.graf--subtitle {
+    font-weight: 400 !important;
+}
+
+// h3
+
+.graf--h3 {
+    margin-top: 53px;
+}
+
+.graf--h3 {
+    font-family: medium-content-sans-serif-font, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Arial, sans-serif;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1.15;
+    letter-spacing: -.015em;
+    font-weight: 600;
+
+}
+
+.graf--h2,
+.graf--h3,
+.graf--h4 {
+    color: rgba(0, 0, 0, .84);
+}
+
+.graf--p.graf-after--h3 {
+    margin-top: 8px;
+}
+
+// h4
+
+.graf--h4.graf-after--blockquote,
+.graf--h4.graf-after--p,
+.postList+.graf--h4 {
+    margin-top: 30px;
+}
+
+.graf--h4 {
+    margin-top: 39px;
+}
+
+.graf--h4 {
+    font-family: medium-content-sans-serif-font, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Arial, sans-serif;
+    letter-spacing: -.02em;
+    letter-spacing: 0;
+    font-size: 21px;
+    line-height: 1.22;
+    letter-spacing: -.012em;
+    font-weight: 600
+}
+
+.graf--p.graf-after--h4 {
+    margin-top: 6px;
+}
+
+// span green highlight
+body.is-withMagicUnderlines .postArticle.is-withAccentColors .markup--quote.is-other {
+    background-color: transparent !important;
+    background-image: linear-gradient(to bottom, rgba(233, 242, 253, 1), rgba(233, 242, 253, 1));
+}
+
+.postArticle.is-withAccentColors .markup--quote.is-other {
+    background-color: rgba(233, 242, 253, 1) !important;
+}
+
+body.is-withMagicUnderlines .markup--quote.is-other {
+    background-color: transparent;
+    background-image: linear-gradient(to bottom, rgba(12, 242, 143, .2), rgba(12, 242, 143, .2));
+}
+
+.markup--quote.is-other {
+    background-color: rgba(12, 242, 143, .2);
+}
+
+.markup--quote {
+    -webkit-transition: .2s background-color;
+    transition: .2s background-color;
+    cursor: pointer;
+}
+
+
+// img - figure
+.progressiveMedia.is-canvasLoaded .progressiveMedia-canvas,
+.progressiveMedia.is-imageLoaded .progressiveMedia-image,
+.progressiveMedia.is-zoomLoaded .progressiveMedia-zoom {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transition: visibility 0s linear 0s, opacity .4s 0s;
+    transition: visibility 0s linear 0s, opacity .4s 0s;
+}
+
+.progressiveMedia-canvas,
+.progressiveMedia-image,
+.progressiveMedia-zoom {
+    visibility: hidden;
+    opacity: 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.progressiveMedia-image {
+    z-index: 100;
+}
+
+.progressiveMedia,
+.progressiveMedia-canvas,
+.progressiveMedia-image,
+.progressiveMedia-noscript,
+.progressiveMedia-zoom {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+img {
+    border: 0;
+    max-width: 100%;
+    margin: 0 auto;
+    display: block;
+}
+
+[data-action=zoom] {
+    cursor: pointer;
+    cursor: -webkit-zoom-in;
+    cursor: zoom-in;
+}
+
+.graf--figure {
+    position: relative;
+    clear: both;
+    outline: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-user-select: auto;
+    -moz-user-select: auto;
+    -ms-user-select: auto;
+    user-select: auto;
+    z-index: 100;
+}
+
+.iframe-NA {
+    margin-top: 30px;
+    border: 1px solid #e3e3e3cc;
+    border-radius: 2px;
+    background-color: #e3e3e3cc;
+    min-height: 100px;
+}
+
+.graf--layoutOutsetCenter {
+    width: 100%;
+    float: none;
+    margin: 0 auto;
+    margin-left: -50%;
+    transform: translateX(25%);
+
+    img {
+        width: 150%;
+        max-width: 150% !important;
+    }
+}
+
+.v-glyph--m2 .graf--sectionCaption,
+.v-glyph--m2 .imageCaption {
+    font-weight: 400;
+}
+
+.graf--layoutFillWidth>.imageCaption,
+.graf--layoutOutsetCenter>.imageCaption {
+    text-align: center;
+    margin: 10px auto 0;
+}
+
+.graf--sectionCaption,
+.imageCaption {
+    font-weight: 300;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 1.4;
+    color: rgba(0, 0, 0, .68);
+    letter-spacing: 0;
+}
+
+.imageCaption {
+    position: relative;
+    left: 0;
+    width: 100%;
+    top: 0;
+    margin-top: 10px;
+    color: rgba(0, 0, 0, .68);
+    outline: 0;
+    text-align: center;
+    z-index: 300;
+}
+
+.imageCaptionCustom {
+    transform: translateX(25%);
+    width: 100%;
+    text-align: center;
+    font-size: 10px;
+}
+
+body.is-withMagicUnderlines .markup--anchor {
+    text-decoration: none;
+    background-repeat: repeat-x;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, .84) 100%, rgba(0, 0, 0, 0) 0);
+    background-image: linear-gradient(to right, currentColor 100%, currentColor 0);
+    background-size: 1px 1px;
+    background-position: 0 1.05em;
+    background-position: 0 calc(1em + 1px);
+}
+
+.markup--anchor {
+    text-decoration: underline;
+}
+
+.markup--anchor {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, .54);
+}
+
+// li
+.graf--li {
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 1.58;
+}
+
+.graf--li {
+    margin-left: 30px;
+    margin-bottom: 14px;
+}
+
+
+// pre 
+.graf--figure.graf-after--blockquote,
+.graf--figure.graf-after--p,
+.graf--mixtapeEmbed.graf-after--blockquote,
+.graf--mixtapeEmbed.graf-after--p,
+.graf--pre.graf-after--blockquote,
+.graf--pre.graf-after--p,
+.postList+.graf--figure,
+.postList+.graf--mixtapeEmbed,
+.postList+.graf--pre {
+    margin-top: 43px;
+}
+
+.graf--figure.graf-after--h3,
+.graf--mixtapeEmbed.graf-after--h3,
+.graf--pre.graf-after--h3 {
+    margin-top: 44px;
+}
+
+.graf--figure,
+.graf--mixtapeEmbed,
+.graf--pre {
+    margin-top: 52px;
+}
+
+.graf--pre,
+.markup--blockquote-code,
+.markup--li-code,
+.markup--p-code {
+    font-family: Menlo, Monaco, "Courier New", Courier, monospace;
+    font-size: 13px;
+}
+
+.graf--pre {
+    background: rgba(0, 0, 0, .05);
+    padding: 20px;
+    white-space: pre-wrap;
+    border: none;
+    border-radius: 0;
+}
+
+.graf-after--pre-div {
+    margin-top: 0 !important;
+    padding-top: 4px;
+}
+
+pre {
+    margin-bottom: 0px !important;
+}
+
+
+// blockquote
+
+.postArticle-content .graf--blockquote.graf-after--p,
+.postList+.graf--blockquote {
+    margin-top: 29px;
+}
+
+.graf--blockquote {
+    margin-top: 38px;
+}
+
+.graf--blockquote {
+    font-weight: 400;
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.58;
+    letter-spacing: -.003em;
+}
+
+.graf--blockquote {
+    border-left: 3px solid rgba(0, 0, 0, .84);
+    padding-left: 20px;
+    margin-left: -23px;
+    padding-bottom: 2px;
+}
+
+.graf--pullquote.graf-after--blockquote,
+.graf--pullquote.graf-after--p,
+.postList+.graf--pullquote {
+    margin-top: 55px;
+}
+
+.graf--pullquote {
+    margin-top: 64px;
+}
+
+.graf--pullquote {
+    font-weight: 400;
+    font-style: italic;
+    font-size: 24px;
+    line-height: 1.48;
+}
+
+.graf--blockquote.graf-after--blockquote {
+    margin-top: 0;
+    padding-top: 27px;
+}
+
+// overriding
+.graf--p.graf-after--blockquote,
+.postArticle-content .graf--p.graf-after--p,
+.postList+.graf--p {
+    margin-top: 29px;
+}
+
+.graf--figure,
+.graf--mixtapeEmbed,
+.graf--pre {
+    margin-top: 52px;
+}

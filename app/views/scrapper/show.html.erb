@@ -1,0 +1,70 @@
+<div class="container scrapperContainer" ng-controller="webScrapperController">
+    <div ng-if="loader == true">
+        <%= render 'loaderscrapper' %>
+    </div>
+
+    <div ng-if="loader == false">
+        <div class="related--tags">
+            <header>
+                <h5><u>Related tags:</u></h5>
+            </header>
+            <div class="tags--detail" ng-repeat="tag in tags">
+                <span class="label label-primary" ng-click="relatedTagRedirect(tag.tag_link)">{{tag.tag_name}}</span>
+            </div>
+        </div>
+        <div class="blog--overview" ng-repeat="blog in blogs">
+            <div class="blog-overview-header">
+                <p>
+                    <span class="name">
+                        <a href="{{blog.author_link}}">
+                            {{ blog.author_name }}
+                        </a>
+                    </span>
+                    <span ng-if="blog.author_name.length != 0"> in </span>
+                    <span class="name">
+                        <a href="{{ blog.blog_archieve_link }}">
+                            {{ blog.blog_archieve_name }}
+                        </a>
+                    </span>
+                    (
+                    {{ blog.reading_time }}
+                    )
+                </p>
+            </div>
+            <a href="/blog" ng-click="getBlog(blog.blog_link)" class="blog-over-content">
+                <div class="blog-overview-image">
+                    <img src="{{ blog.img_link }}" alt="" ng-class="{'no-image': blog.img_link == '' ||  blog.img_link == null}">
+                </div>
+                <div class="blog-overview-title">
+                    <h2 class="previewTitle">
+                        {{ blog.title }}
+                    </h2>
+                    <p class="previewSubtitle">
+                        {{ blog.sub_title }}
+                    </p>
+                    <p class="readmore">
+                        <span>Read More</span>
+                    </p>
+                </div>
+            </a>
+            <div class="blog-overview-footer">
+                <div class="row">
+                    <div class="col-sm-3">
+                        {{ blog.upvotes }}
+                    </div>
+                    <div class="col-sm-6"></div>
+                    <div class="col-sm-3">
+                        <p style="float:right; margin:0;">16 responses</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="readMore" id="readMore">
+            <div ng-if="loaderReadMore == true">
+                <%= render 'loaderreadmore' %>
+            </div>
+            <button class="btn btn-default" ng-click="moreBlogs()">Read More</button>
+        </div>
+    </div>
+</div>

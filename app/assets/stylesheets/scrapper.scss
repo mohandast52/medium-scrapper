@@ -1,0 +1,142 @@
+// Place all the styles related to the Scrapper controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+// color
+$light-grey : #707070;
+$light-green:#018f69;
+
+
+// sizes
+$main-width: 700px;
+
+
+body {
+    background-color: #ececec80;
+}
+
+.scrapperContainer {
+    width: $main-width !important;
+}
+
+
+.related--tags {
+    .tags--detail {
+        display: inline-block;
+        margin-bottom: 10px;
+        font-size: 18px;
+        margin-right: 5px;
+
+        span {
+            border-radius: 20px;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.blog--overview {
+    padding: 15px;
+    margin: 20px auto 0px;
+    background: #fff;
+    -webkit-box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+    border: 1px solid rgba(0, 0, 0, .09);
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+
+    .blog-overview-header {
+        p {
+            font-size: 14px;
+        }
+    }
+
+    .blog-overview-image {
+        padding-bottom: 15px;
+
+        img {
+            height: 150px;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 3px;
+            -webkit-border-radius: 3px;
+        }
+
+        img.no-image {
+            height: 0px !important;
+        }
+    }
+
+    .blog-over-content {
+        text-decoration: none !important;
+
+        .blog-overview-title {
+            .previewTitle {
+                font-size: 24px;
+                font-weight: 600;
+                color: rgb(37, 37, 37);
+            }
+
+            .previewSubtitle {
+                font-size: 16px;
+                font-weight: lighter;
+                color: $light-grey;
+            }
+
+            .readmore {
+                font-size: 11px;
+                color: $light-grey;
+                text-decoration: underline;
+                margin-bottom: 4px;
+            }
+        }
+
+        &:hover {
+            text-decoration: none;
+            color: initial;
+        }
+
+    }
+
+    .blog-overview-footer {
+        font-size: 14px;
+    }
+}
+
+// read more button
+.readMore {
+    text-align: center;
+    margin: 20px auto;
+
+    button {}
+}
+
+// common
+a:active,
+a:focus {
+    outline: 0;
+    border: none;
+    -moz-outline-style: none;
+}
+
+
+// mobile
+@media only screen and (min-width : 320px) {}
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width : 480px) {}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+    .scrapperContainer {
+        width: 100% !important;
+    }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {}

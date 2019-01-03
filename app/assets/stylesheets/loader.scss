@@ -1,0 +1,102 @@
+.loader--bg {
+    margin-top: 50px;
+    padding: 15px;
+
+    .movable-gradient {
+        width: 99%;
+        margin: 0 auto 10px;
+        background-color: #eeeeee;
+        opacity: .7;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);
+        -webkit-box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);
+    }
+
+    .movable-gradient-1 {
+        height: 15px;
+    }
+
+    .movable-gradient-2 {
+        height: 250px;
+        margin-top: 40px;
+    }
+
+    .movable-gradient-3 {
+        height: 25px;
+        margin-top: 40px;
+        width: 50%;
+    }
+
+    .movable-gradient-4 {
+        height: 100px;
+        margin-top: 40px;
+    }
+
+    .movable-gradient>div {
+        width: 99%;
+        position: absolute;
+        background: -webkit-gradient(linear, left top, right top, color-stop(8%, #eeeeee), color-stop(18%, #dddddd), color-stop(33%, #eeeeee));
+        background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+        -webkit-animation-name: gradient-ani;
+        animation-name: gradient-ani;
+        -webkit-animation-duration: 0.8s;
+        animation-duration: 0.8s;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-direction: normal;
+        animation-direction: normal;
+    }
+
+    .movable-gradient-1>div {
+        height: 15px;
+    }
+
+    .movable-gradient-2>div {
+        height: 250px;
+    }
+
+    .movable-gradient-3>div {
+        height: 25px;
+    }
+
+    .movable-gradient-4>div:nth-child(1) {
+        height: 25px;
+    }
+
+    .movable-gradient-4>div:nth-child(2) {
+        margin-top: 50px;
+        height: 25px;
+    }
+
+    @-webkit-keyframes gradient-ani {
+        0% {
+            left: -20%;
+        }
+
+        100% {
+            left: 100%;
+        }
+    }
+
+    @keyframes gradient-ani {
+        0% {
+            left: -20%;
+        }
+
+        100% {
+            left: 100%;
+        }
+    }
+}
+
+// overriding for READ MORE loader
+.scrapperContainer .readMore {
+    .loader--bg {
+        margin: 0 !important;
+    }
+
+    .movable-gradient-2:nth-child(1) {
+        margin-top: 0px !important;
+    }
+}

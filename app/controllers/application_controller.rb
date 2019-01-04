@@ -1,3 +1,3 @@
 class ApplicationController < ActionController::Base
-    @@BROWSER = nil
+    @@URL = nil
 end

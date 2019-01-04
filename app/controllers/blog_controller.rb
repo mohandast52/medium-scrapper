@@ -4,20 +4,25 @@ class BlogController < ApplicationController
 
     def scrapeArticle
 
-        @url = "https://towardsdatascience.com/get-smarter-with-data-science-tackling-real-enterprise-challenges-67ee001f6097"
-        # @url = "https://towardsdatascience.com/3rd-wave-data-visualization-824c5dc84967"
-        # @url = "https://towardsdatascience.com/music-genre-classification-with-python-c714d032f0d8"
-        # @url = https://towardsdatascience.com/master-python-through-building-real-world-applications-part-3-17d08eda58e
-        @@BROWSER = Watir::Browser.new :chrome #, headless: true
+        # using headless browser running in background (eats more RAM and SLOW)
+        # -------------------------------------
+        # @@URL = "https://towardsdatascience.com/get-smarter-with-data-science-tackling-real-enterprise-challenges-67ee001f6097"
+        @BLOG_BROWSER = Watir::Browser.new :chrome #, headless: true
+        @BLOG_BROWSER.goto(@@URL)
+        @doc = Nokogiri::HTML.parse(@BLOG_BROWSER.html)
+        @BLOG_BROWSER.quit()
+        article = @doc.css('.postArticle-content')
+        # -------------------------------------
 
-        @@BROWSER.goto(@url)
 
-        # @@BROWSER.scroll.to :bottom
-
-        @@doc = Nokogiri::HTML.parse(@@BROWSER.html)
-
-        article = @@doc.css('.postArticle-content')
-
+        # using Httparty, less RAM and less time required to parse!
+        # -------------------------------------
+        # @@URL = "https://towardsdatascience.com/get-smarter-with-data-science-tackling-real-enterprise-challenges-67ee001f6097"
+        # unparsed_page = HTTParty.get(@@URL)
+        # @doc = Nokogiri::HTML.parse(unparsed_page)
+        # article = @doc.css('.postArticle-content')
+        # -------------------------------------
+        
         articleJSON = []
         article[0].css(' .section--body .section-inner').each do |sections|
             # each sections contains: paragraph (p), images (f),

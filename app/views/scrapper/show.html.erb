@@ -1,70 +1,101 @@
-<div class="container scrapperContainer" ng-controller="webScrapperController">
-    <div ng-if="loader == true">
-        <%= render 'loaderscrapper' %>
-    </div>
-
-    <div ng-if="loader == false">
-        <div class="related--tags">
-            <header>
-                <h5><u>Related tags:</u></h5>
-            </header>
-            <div class="tags--detail" ng-repeat="tag in tags">
-                <span class="label label-primary" ng-click="relatedTagRedirect(tag.tag_link)">{{tag.tag_name}}</span>
+<div ng-controller="webScrapperController">
+    <nav class="navbar navbar-inverse navbar-custom">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">GoComet</a>
             </div>
-        </div>
-        <div class="blog--overview" ng-repeat="blog in blogs">
-            <div class="blog-overview-header">
-                <p>
-                    <span class="name">
-                        <a href="{{blog.author_link}}">
-                            {{ blog.author_name }}
-                        </a>
-                    </span>
-                    <span ng-if="blog.author_name.length != 0"> in </span>
-                    <span class="name">
-                        <a href="{{ blog.blog_archieve_link }}">
-                            {{ blog.blog_archieve_name }}
-                        </a>
-                    </span>
-                    (
-                    {{ blog.reading_time }}
-                    )
-                </p>
-            </div>
-            <a href="/blog" target="_blank" ng-click="getBlog(blog.blog_link)" class="blog-over-content">
-                <div class="blog-overview-image">
-                    <img src="{{ blog.img_link }}" ng-class="{'no-image': blog.img_link == '' ||  blog.img_link == null}">
-                </div>
-                <div class="blog-overview-title">
-                    <h2 class="previewTitle">
-                        {{ blog.title }}
-                    </h2>
-                    <p class="previewSubtitle">
-                        {{ blog.sub_title }}
-                    </p>
-                    <p class="readmore">
-                        <span>Read More</span>
-                    </p>
-                </div>
-            </a>
-            <div class="blog-overview-footer">
-                <div class="row">
-                    <div class="col-sm-3">
-                        {{ blog.upvotes }}
-                    </div>
-                    <div class="col-sm-6"></div>
-                    <div class="col-sm-3">
-                        <p style="float:right; margin:0;">16 responses</p>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Page 1</a></li>
+                <li><a href="#">Page 2</a></li>
+            </ul>
+            <div class="navbar-form navbar-right">
+                <div class="input-group">
+                    <input type="text" class="form-control" required placeholder="Search" name="search" ng-model="tagvalue">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit" ng-click="search(tagvalue)">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
+    </nav>
 
-        <div class="readMore" id="readMore">
-            <div ng-if="loaderReadMore == true">
-                <%= render 'loaderreadmore' %>
+
+    <div class="container scrapperContainer">
+        <div ng-if="loader == true">
+            <%= render 'loaderscrapper' %>
+        </div>
+
+        <div ng-if="loader == false">
+            <div class="related--tags">
+                <header>
+                    <h5><u>Related tags:</u></h5>
+                </header>
+                <div class="tags--detail" ng-repeat="tag in tags">
+                    <span class="label label-primary" ng-click="search(tag.tag_name)">{{tag.tag_name}}</span>
+                </div>
             </div>
-            <button class="btn btn-default" ng-click="moreBlogs()">Read More</button>
+            <div class="blog--overview" ng-repeat="blog in blogs">
+                <div class="blog-overview-header">
+                    <p>
+                        <span class="name">
+                            <a href="{{blog.author_link}}">{{ blog.author_name }}</a>
+                        </span>
+                        <span ng-if="blog.blog_archieve_link.length != null"> in </span>
+                        <span class="name">
+                            <a href="{{ blog.blog_archieve_link }}">{{ blog.blog_archieve_name }}</a>
+                        </span>
+                        (
+                        {{ blog.reading_time }}
+                        )
+                    </p>
+                </div>
+                <a href="/blog" target="_blank" ng-click="getBlog(blog.blog_link)" class="blog-over-content">
+                    <div class="blog-overview-image">
+                        <img src="{{ blog.img_link }}" ng-class="{'no-image': blog.img_link == '' ||  blog.img_link == null}">
+                    </div>
+                    <div class="blog-overview-title">
+                        <h2 class="previewTitle">
+                            {{ blog.title }}
+                        </h2>
+                        <p class="previewSubtitle">
+                            {{ blog.sub_title }}
+                        </p>
+                        <p class="readmore">
+                            <span>Read More</span>
+                        </p>
+                    </div>
+                </a>
+                <div class="blog-overview-footer">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{ blog.upvotes }}
+                        </div>
+                        <div class="col-sm-6"></div>
+                        <div class="col-sm-3">
+                            <p style="float:right; margin:0;">16 responses</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="readMore" id="readMore">
+                <div ng-if="loaderReadMore == true">
+                    <%= render 'loaderreadmore' %>
+                </div>
+                <button class="btn btn-default" ng-click="moreBlogs()" ng-hide="hideReadMoreBtn">Read More</button>
+            </div>
+
+            <div ng-if="blogs.length == 0">
+                <p class="noblogs">This tag does not have any stories yet.</p>
+            </div>
+
+
+            <div ng-show="hideReadMoreBtn && blogs.length != 0">
+                <p class="nomoreblogs">That's it!</p>
+            </div>
         </div>
     </div>
 </div>

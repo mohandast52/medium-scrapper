@@ -1,18 +1,29 @@
 class ScrapperController < ApplicationController
 
-    
+    # @@BROWSER is a global variable 
+    # @@BROWSER = nil
+    @@BROWSER = Watir::Browser.new :chrome #, headless: true
+    @@TAG_NAME = ""
+
     def show 
     end
-
-    # @@BROWSER is a global variable declared in application_controller
     
+    # accessing global variable and setting it as URL,
+    # to be used by blog_controller to parse that URL
+    def bloglink
+        @@URL = params[:blog_url]
+    end
+
+    def tag_name
+        @@TAG_NAME = params[:tag_name]
+        puts @@TAG_NAME
+    end
+
     # scrapping pages
     def scrapWebPage
         @website = "https://medium.com/tag/"
-        @tag_name = "machine-learning"
-        @url = @website + "" + @tag_name
+        @url = @website + "" + @@TAG_NAME
 
-        @@BROWSER = Watir::Browser.new :chrome #, headless: true
         @@BROWSER.goto(@url)
         readPage()
         
@@ -42,7 +53,7 @@ class ScrapperController < ApplicationController
         @doc.css('.streamItem').each do |blog|
             # author details: name, link to medium
             author_details = blog.css('.postMetaInline-authorLockup a').css('[data-action="show-user-card"]')
-            author_name = author_details.text
+            author_name = author_details.text.strip
             author_link = author_details.map { |link| link['href'] }
 
             # blog_archieve details
@@ -74,9 +85,6 @@ class ScrapperController < ApplicationController
                 :img_link => img_link
             })
         end
-        #puts @blogs
-        # closing browser after srapping
-        # @@browser.close
         
         respond_to do |format|
             format.json{
@@ -87,4 +95,7 @@ class ScrapperController < ApplicationController
             }
         end
     end
+
+    
+
 end

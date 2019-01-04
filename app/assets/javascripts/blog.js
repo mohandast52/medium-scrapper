@@ -10,28 +10,16 @@
 
     angular.module('webScrapper')
         .controller("blogController", [
-            '$scope', 'EachBlogDetails', '$http', '$q', '$timeout', 'DataShare', '$rootScope',
-            function ($scope, EachBlogDetail, $http, $q, $timeout, DataShare, $rootScope) {
+            '$scope', 'EachBlogDetails', '$http', '$q', '$timeout',
+            function ($scope, EachBlogDetail, $http, $q, $timeout) {
                 $scope.loader = true;
 
-
-                // from SCRAPPER.JS
-                $scope.from_scrapper = DataShare.from_scrapper;
-                console.log($scope.from_scrapper);
-                console.log($scope.from_scrapper.url);
-                console.log($rootScope.blog_url);
-
-                //10 seconds delay
-                $timeout(function () {
-                    EachBlogDetail.getCurrentBlog().then(
-                        function (response, status, headers, config) {
-                            $scope.loader = false;
-                            console.log($scope.loader);
-                            $scope.datas = response.data.article;
-
-                        }
-                    );
-                }, 2000);
+                EachBlogDetail.getCurrentBlog().then(
+                    function (response, status, headers, config) {
+                        $scope.loader = false;
+                        $scope.datas = response.data.article;
+                    }
+                );
             }
         ]);
 

@@ -1,0 +1,23 @@
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+    <!-- table -->
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Count</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="history in histories | orderBy : 'updated_at' : true" ng-click="history_click(history.title)">
+                    <td>{{ history.title | removeDashedString }}</td>
+                    <td>{{ history.repeat }}</td>
+                    <td>{{ history.updated_at | date}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

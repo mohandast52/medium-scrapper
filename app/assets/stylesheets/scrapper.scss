@@ -131,6 +131,77 @@ body {
     color: grey;
 }
 
+// side nav
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #ececec;
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 60px;
+    -webkit-box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 5px 8px 0 rgba(0, 0, 0, .14), 0 1px 14px 0 rgba(0, 0, 0, .12);
+
+    a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+
+        &:hover {
+            color: #f1f1f1;
+        }
+    }
+
+    .closebtn {
+        position: absolute;
+        top: 0;
+        right: 10px;
+        font-size: 30px;
+        text-decoration: none !important;
+        line-height: 30px;
+        padding: 0 !important;
+    }
+
+    .table-responsive {
+        overflow-x: hidden !important;
+
+        table {
+            thead th {
+                text-align: center;
+            }
+
+            tbody {
+                tr {
+                    td {
+                        text-align: center;
+
+                        &:first-child {
+                            width: 300px;
+                            text-align: left !important;
+                            padding-left: 30px;
+                        }
+                    }
+                }
+
+                &>tr:hover {
+                    background-color: #f8f8f8;
+                    cursor: pointer;
+                }
+            }
+
+        }
+    }
+}
+
+@media screen and (max-height: 450px) {}
+
 // common
 a:active,
 a:focus {
@@ -155,21 +226,26 @@ a:focus {
     }
 }
 
-// mobile
-@media only screen and (min-width : 320px) {}
+@media only screen and (max-width : 320px) {}
 
-/* Extra Small Devices, Phones */
-@media only screen and (min-width : 480px) {}
+@media only screen and (max-width : 480px) {
 
-/* Small Devices, Tablets */
+    // side nav
+    .sidenav {
+        padding-top: 15px;
+    }
+
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+
 @media only screen and (max-width : 768px) {
     .scrapperContainer {
         width: 100% !important;
     }
 }
 
-/* Medium Devices, Desktops */
-@media only screen and (min-width : 992px) {}
+@media only screen and (max-width : 992px) {}
 
-/* Large Devices, Wide Screens */
-@media only screen and (min-width : 1200px) {}
+@media only screen and (max-width : 1200px) {}

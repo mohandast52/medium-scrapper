@@ -1,0 +1,29 @@
+<nav class="navbar navbar-inverse navbar-custom">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">GoComet</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li>
+                <a href="#"></a>
+            </li>
+            <li>
+                <a href="javascript:;" onclick="openNav()"> 
+                    <span class="glyphicon glyphicon-time"></span> 
+                    History
+                </a>
+            </li>
+        </ul>
+        <div class="navbar-form navbar-right">
+            <div class="input-group">
+                <input type="text" class="form-control" required placeholder="Search" name="search" ng-model="tagvalue">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit" ng-click="search(tagvalue)">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</nav>

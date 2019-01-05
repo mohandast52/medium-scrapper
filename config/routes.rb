@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   # scrapper
   get 'scrapper/scrapWebPage' => 'scrapper#scrapWebPage', :defaults => { :format => 'json' }
   get 'scrapper/nextTenBlogs' => 'scrapper#nextTenBlogs', :defaults => { :format => 'json' }
+  get 'scrapper/get_all_history_json' => 'scrapper#get_all_history_json', :defaults => { :format => 'json' }
+  post 'scrapper/insert_histroy' => 'scrapper#insert_histroy', :defaults => { :format => 'json' }
   post 'scrapper/bloglink' => 'scrapper#bloglink'
   post 'scrapper/tag_name' => 'scrapper#tag_name'
 

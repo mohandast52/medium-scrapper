@@ -1,12 +1,22 @@
 (function () {
     'use strict';
 
-
+    // value
     angular.module('webScrapper')
         .value('ScrapperValues', {
             'READ_MORE_CLICK': 1
         });
 
+    // filters
+    angular.module('webScrapper')
+        .filter('removeDashedString', function () {
+            return function (text) {
+                var str = text.replace(/-/g, " ");
+                return str.charAt(0).toUpperCase() + str.slice(1);
+            };
+        });
+
+    // factory to store comman reusable functions
     angular.module('webScrapper')
         .factory('HelperMethods', function () {
             return {
@@ -35,46 +45,61 @@
 
     angular.module('webScrapper')
         .controller("webScrapperController", [
-            '$scope', 'BlogDetailsFactory', '$timeout', '$window', '$document', 'HelperMethods', 'ScrapperValues',
-            function ($scope, BlogDetailsFactory, $timeout, $window, $document, HelperMethods, ScrapperValues) {
+            '$scope', 'BlogDetailsFactory', '$filter', 'HelperMethods', 'ScrapperValues',
+            function ($scope, BlogDetailsFactory, $filter, HelperMethods, ScrapperValues) {
 
+                // get history
+                BlogDetailsFactory.getAllHistory().then(
+                    function (response, status, headers, config) {
+                        $scope.histories = response.data.history;
+                    }
+                );
+
+                $scope.history_click = function (tag_name) {
+                    // calling search function
+                    $scope.search($filter('removeDashedString')(tag_name));
+                }
+
+                // on search button click
                 $scope.search = function (tag_name) {
                     if (tag_name.length > 0 && !HelperMethods.containsSpecialCharacters(tag_name)) {
 
                         $scope.loader = true;
-
                         $scope.tagvalue = tag_name; // to change the text inside search textbox
-                        BlogDetailsFactory.tagname(HelperMethods.dashedString(tag_name)).then(
-                            function (data, status, headers, config) {
+
+                        var dashed_tag_name = HelperMethods.dashedString(tag_name);
+
+                        // update @@TAG_NAME in scrapper_controller
+                        BlogDetailsFactory.tagname(dashed_tag_name).then(function (data, status, headers, config) {
+
+                            // add to history
+                            BlogDetailsFactory.update_history(dashed_tag_name).then(function (data) {
+                                $scope.histories = data.data.history;
+
                                 // initially it has value 1, on read more it will increment
                                 /*
-                                    used to hide the readMore button, 
-                                    if we have exact blogs
-                                        number of blogs = (READ_MORE_CLICK * 10)
-                                    else 
-                                        number of blogs < (READ_MORE_CLICK * 10)
-                                        // now we can hide the button
+                                    to hide the readMore button, 
+                                    if we have exact blogs, number of blogs = (READ_MORE_CLICK * 10)
+                                    else, number of blogs < (READ_MORE_CLICK * 10)
                                 */
                                 ScrapperValues.READ_MORE_CLICK = 1;
 
                                 // GET request to first 10 blogs
-                                BlogDetailsFactory.starterBlogs().then(
-                                    function (response, status, headers, config) {
-                                        $scope.loader = false;
-                                        $scope.blogs = response.data.blogs;
-                                        $scope.tags = response.data.tags;
+                                BlogDetailsFactory.starterBlogs().then(function (response, status, headers, config) {
+                                    $scope.loader = false;
+                                    $scope.blogs = response.data.blogs;
+                                    $scope.tags = response.data.tags;
 
-                                        // hide read more btn, if we have only few blogs
-                                        if ($scope.blogs.length < 10) {
-                                            $scope.hideReadMoreBtn = true;
-                                        } else {
-                                            $scope.hideReadMoreBtn = false;
-                                        }
+                                    // hide read more btn, if we have only few blogs
+                                    if ($scope.blogs.length < 10) {
+                                        $scope.hideReadMoreBtn = true;
+                                    } else {
+                                        $scope.hideReadMoreBtn = false;
                                     }
-                                );
-                            }
-                        ); // blogs request
-                    }
+                                }); // blogs request
+                            });
+                        });
+                    } // if(tag_name_is_valid) condition!
                 } // search function end
 
 
@@ -115,6 +140,24 @@
             function ($filter, $http, $q) {
                 var service = {};
 
+                // to maintain history
+                service.update_history = function (tag_name) {
+                    var deferred = $q.defer();
+                    $http({
+                        header: 'Content-Type: application/json',
+                        method: 'POST',
+                        url: '/scrapper/insert_histroy',
+                        data: {
+                            tag_name: tag_name
+                        }
+                    }).then(function (data) {
+                        deferred.resolve(data);
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                    return deferred.promise;
+                }
+
                 // access the class variable and stores the tag_name to get blogs
                 service.tagname = function (tag_name) {
                     var deferred = $q.defer();
@@ -125,6 +168,21 @@
                         data: {
                             tag_name: tag_name
                         }
+                    }).then(function (data, status, headers, config) {
+                        deferred.resolve(data);
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                    return deferred.promise;
+                }
+
+
+                service.getAllHistory = function (fundname) {
+                    var deferred = $q.defer();
+                    $http({
+                        header: 'Content-Type: application/json',
+                        method: 'GET',
+                        url: '/scrapper/get_all_history_json'
                     }).then(function (data, status, headers, config) {
                         deferred.resolve(data);
                     }).catch(function (error) {
@@ -181,9 +239,18 @@
                     });
                     return deferred.promise;
                 }
-
                 return service;
             }
         ]);
 
 }());
+
+
+// JS for histroy sidenav
+function openNav() {
+    document.getElementById("mySidenav").style.width = "500px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}

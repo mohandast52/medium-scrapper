@@ -1,7 +1,6 @@
 class ScrapperController < ApplicationController
 
     # @@BROWSER is a global variable 
-    # @@BROWSER = nil
     @@BROWSER = Watir::Browser.new :chrome #, headless: true
     @@TAG_NAME = ""
 
@@ -30,7 +29,7 @@ class ScrapperController < ApplicationController
     end
 
     def nextTenBlogs
-        @@BROWSER.scroll.to :bottom
+        @@BROWSER.scroll.to :bottom # on scrolling, medium makes the ajax request for new blogs!
         sleep 5 # wait for 5 seconds to load the page and extract it!
         readPage()
     end
@@ -97,5 +96,60 @@ class ScrapperController < ApplicationController
     end
 
     
+    # databases
+
+    # def new_history
+    #     @history = History.new
+    # end
+
+    def insert_histroy
+        tag_name = params[:tag_name]
+        @history = History.find_by(title: tag_name)
+        if @history.nil?
+            create_history(tag_name)
+        else
+            @history.update_attribute(:repeat, @history.repeat + 1)
+            # update_history(tag_name)
+        end
+
+        get_all_history_json()
+    end
+
+    def create_history(tag_name)
+        @history = History.create(:title => tag_name, :repeat => 1)
+        if @history.save
+            # successfully created!
+        else
+            # catch exception
+        end
+    end
+
+    def get_all_history_json
+        respond_to do |format|
+            format.json{
+                render json: {
+                    "history": get_all_history()
+                }.to_json 
+            }
+        end
+    end
+
+    def get_all_history
+        @histories = History.all
+    end
+
+    def update_history(tag_name)
+        # 1. get the row and store it
+        @history_local = History.find_by(title: tag_name)
+
+        # 2. delete the row
+        History.find_by(title: tag_name).destroy
+
+        # 3. update the local_variable storing the row
+        @history_local.repeat = @history_local.repeat + 1
+        
+        History.create(title: @history_local.title, repeat: @history_local.repeat)
+        # 4. insert it into the table
+    end
 
 end

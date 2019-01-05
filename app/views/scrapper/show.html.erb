@@ -1,27 +1,9 @@
-<div ng-controller="webScrapperController">
-    <nav class="navbar navbar-inverse navbar-custom">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">GoComet</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Page 1</a></li>
-                <li><a href="#">Page 2</a></li>
-            </ul>
-            <div class="navbar-form navbar-right">
-                <div class="input-group">
-                    <input type="text" class="form-control" required placeholder="Search" name="search" ng-model="tagvalue">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit" ng-click="search(tagvalue)">
-                            <i class="glyphicon glyphicon-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
 
+
+<div ng-controller="webScrapperController">
+    <%= render 'nav' %>
+    
+    <%= render 'history' %>
 
     <div class="container scrapperContainer">
         <div ng-if="loader == true">

@@ -4,8 +4,8 @@
 
 // color
 $light-grey : #707070;
-$light-green:#018f69;
-
+$light-green: #018f69;
+$blue: #144fec;
 
 // sizes
 $main-width: 700px;
@@ -29,9 +29,11 @@ body {
 
         span {
             border-radius: 20px;
+            background-color: $blue !important;
 
             &:hover {
                 cursor: pointer;
+                background-color: #222 !important;
             }
         }
     }
@@ -95,6 +97,7 @@ body {
                 color: $light-grey;
                 text-decoration: underline;
                 margin-bottom: 4px;
+
             }
         }
 
@@ -115,7 +118,12 @@ body {
     text-align: center;
     margin: 20px auto;
 
-    button {}
+    .btn {
+        background-color: $blue !important;
+        border: 1px solid $blue !important;
+        color: white !important;
+        font-size: 16px;
+    }
 }
 
 // error
@@ -195,10 +203,18 @@ body {
                     cursor: pointer;
                 }
             }
+        }
 
+        .pulse_anim {
+
+            background-color: $blue !important;
+            color: white;
+            transition: all .2s;
         }
     }
 }
+
+
 
 @media screen and (max-height: 450px) {}
 

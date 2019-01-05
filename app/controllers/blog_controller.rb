@@ -32,6 +32,13 @@ class BlogController < ApplicationController
             # there are multiple .section-inner
             sections.children.each do |sectionInformation|
 
+                # 1. figure
+                # 2. p
+                # 3. pre
+                # 4. blockquote
+                # 5. h4, h3, h2, h1
+                # 6. ul ol
+                
                 if sectionInformation.name == "figure"
                     if sectionInformation.css('.progressiveMedia-image.js-progressiveMedia-image').empty?
                         # something has been emebeded!

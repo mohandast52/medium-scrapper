@@ -12,7 +12,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="history in histories | orderBy : 'updated_at' : true" ng-click="history_click(history.title)">
+                <tr ng-repeat="history in histories | orderBy : 'updated_at' : true" ng-click="history_click(history.id, history.title)"
+                    ng-class="{'pulse_anim':selected_row === history.id}">
                     <td>{{ history.title | removeDashedString }}</td>
                     <td>{{ history.repeat }}</td>
                     <td>{{ history.updated_at | date}}</td>

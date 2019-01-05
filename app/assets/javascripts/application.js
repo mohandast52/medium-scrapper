@@ -17,7 +17,6 @@
 //= require angular-resource
 //= require ng-rails-csrf
 //= require angular-rails-templates
-//= require angular-ui-router
 //= require cable
 //= require jquery3
 //= require bootstrap

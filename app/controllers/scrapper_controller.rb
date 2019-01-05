@@ -1,6 +1,6 @@
 class ScrapperController < ApplicationController
 
-    # @@BROWSER is a global variable 
+    # @@BROWSER is a class variable 
     @@BROWSER = Watir::Browser.new :chrome #, headless: true
     @@TAG_NAME = ""
 
@@ -13,6 +13,7 @@ class ScrapperController < ApplicationController
         @@URL = params[:blog_url]
     end
 
+    # accessing @@TAG_NAME for whole page use
     def tag_name
         @@TAG_NAME = params[:tag_name]
         puts @@TAG_NAME
@@ -22,12 +23,18 @@ class ScrapperController < ApplicationController
     def scrapWebPage
         @website = "https://medium.com/tag/"
         @url = @website + "" + @@TAG_NAME
-
-        @@BROWSER.goto(@url)
-        readPage()
-        
+        begin
+            @@BROWSER.goto(@url)   
+            readPage() # returns list of blogs in JSON format
+        rescue => exception
+            @@BROWSER.quit
+            # again, creating new browser because it might be closed!
+            @@BROWSER = Watir::Browser.new :chrome #, headless: true
+            return exception.to_json
+        end
     end
 
+    # on read_more click
     def nextTenBlogs
         @@BROWSER.scroll.to :bottom # on scrolling, medium makes the ajax request for new blogs!
         sleep 5 # wait for 5 seconds to load the page and extract it!
@@ -98,18 +105,13 @@ class ScrapperController < ApplicationController
     
     # databases
 
-    # def new_history
-    #     @history = History.new
-    # end
-
     def insert_histroy
         tag_name = params[:tag_name]
         @history = History.find_by(title: tag_name)
         if @history.nil?
             create_history(tag_name)
         else
-            @history.update_attribute(:repeat, @history.repeat + 1)
-            # update_history(tag_name)
+            update_history(tag_name)
         end
 
         get_all_history_json()
@@ -139,17 +141,7 @@ class ScrapperController < ApplicationController
     end
 
     def update_history(tag_name)
-        # 1. get the row and store it
-        @history_local = History.find_by(title: tag_name)
-
-        # 2. delete the row
-        History.find_by(title: tag_name).destroy
-
-        # 3. update the local_variable storing the row
-        @history_local.repeat = @history_local.repeat + 1
-        
-        History.create(title: @history_local.title, repeat: @history_local.repeat)
-        # 4. insert it into the table
+        History.find_by(title: tag_name).update_attribute(:repeat, @history.repeat + 1)
     end
 
 end

@@ -48,7 +48,6 @@ GEM
       railties (>= 4.2, < 6)
       sprockets (>= 3.0, < 5)
       tilt
-    angular-ui-router-rails (0.2.15)
     angularjs-rails (1.6.8)
     archive-zip (0.11.0)
       io-like (~> 0.3.0)
@@ -233,7 +232,6 @@ PLATFORMS
 
 DEPENDENCIES
   angular-rails-templates
-  angular-ui-router-rails (~> 0.2.15)
   angularjs-rails
   autoprefixer-rails
   bootsnap (>= 1.1.0)

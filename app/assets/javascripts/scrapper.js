@@ -45,8 +45,8 @@
 
     angular.module('webScrapper')
         .controller("webScrapperController", [
-            '$scope', 'BlogDetailsFactory', '$filter', 'HelperMethods', 'ScrapperValues',
-            function ($scope, BlogDetailsFactory, $filter, HelperMethods, ScrapperValues) {
+            '$scope', 'BlogDetailsFactory', '$filter', '$timeout', 'HelperMethods', 'ScrapperValues',
+            function ($scope, BlogDetailsFactory, $filter, $timeout, HelperMethods, ScrapperValues) {
 
                 // get history
                 BlogDetailsFactory.getAllHistory().then(
@@ -55,9 +55,19 @@
                     }
                 );
 
-                $scope.history_click = function (tag_name) {
+                $scope.history_click = function (index, tag_name) {
                     // calling search function
+
+                    $scope.selected_row = index;
+
+                    $timeout(function () {
+                        // changing the value to remove the class on selected_row
+                        $scope.selected_row = -1;
+                    }, 4000);
+
+
                     $scope.search($filter('removeDashedString')(tag_name));
+                    // changing the value to remove the class on selected_row
                 }
 
                 // on search button click
@@ -65,7 +75,12 @@
                     if (tag_name.length > 0 && !HelperMethods.containsSpecialCharacters(tag_name)) {
 
                         $scope.loader = true;
-                        $scope.tagvalue = tag_name; // to change the text inside search textbox
+
+                        // to display error message!
+                        $scope.internal_server_error = false;
+
+                        // to change the text inside search textbox
+                        $scope.tagvalue = tag_name;
 
                         var dashed_tag_name = HelperMethods.dashedString(tag_name);
 
@@ -87,15 +102,21 @@
                                 // GET request to first 10 blogs
                                 BlogDetailsFactory.starterBlogs().then(function (response, status, headers, config) {
                                     $scope.loader = false;
-                                    $scope.blogs = response.data.blogs;
-                                    $scope.tags = response.data.tags;
 
-                                    // hide read more btn, if we have only few blogs
-                                    if ($scope.blogs.length < 10) {
-                                        $scope.hideReadMoreBtn = true;
+                                    if (response.status === 200) {
+                                        $scope.blogs = response.data.blogs;
+                                        $scope.tags = response.data.tags;
+
+                                        // hide read more btn, if we have only few blogs
+                                        if ($scope.blogs.length < 10) {
+                                            $scope.hideReadMoreBtn = true;
+                                        } else {
+                                            $scope.hideReadMoreBtn = false;
+                                        }
                                     } else {
-                                        $scope.hideReadMoreBtn = false;
+                                        $scope.internal_server_error = true;
                                     }
+
                                 }); // blogs request
                             });
                         });

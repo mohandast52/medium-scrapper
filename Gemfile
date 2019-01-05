@@ -20,7 +20,6 @@ gem 'httparty'
 gem 'angularjs-rails'
 gem 'ng-rails-csrf'
 gem 'angular-rails-templates'
-gem 'angular-ui-router-rails', '~> 0.2.15'
 
 gem 'responders'
 gem 'bootstrap-sass' #, '~> 3.2.0'

@@ -1,8 +1,6 @@
-
-
 <div ng-controller="webScrapperController">
     <%= render 'nav' %>
-    
+
     <%= render 'history' %>
 
     <div class="container scrapperContainer">
@@ -10,7 +8,7 @@
             <%= render 'loaderscrapper' %>
         </div>
 
-        <div ng-if="loader == false">
+        <div ng-if="loader == false && internal_server_error == false">
             <div class="related--tags">
                 <header>
                     <h5><u>Related tags:</u></h5>
@@ -79,5 +77,9 @@
                 <p class="nomoreblogs">That's it!</p>
             </div>
         </div>
+
+        <div ng-if="internal_server_error == true">
+            <p class="noblogs">Something went wrong! <br>
+                Refresh the page and If still, the problem persists, please restart the rails server!</p>
+        </div>
     </div>
-</div>

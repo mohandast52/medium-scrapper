@@ -65,7 +65,3 @@ On wrong input, error is displayed
 > medium makes ajax request on a scroll, so I was not able to use 
 > the traditional idea of paginations.
 
-## I haven't 
-* I gave a shot on scrapping every comments of each blog too, but if the comments are lengthy, the user has to click on read more and ajax request was made. So for every comment, it would take a lot of time on automation.
-
-* Also, i didn't understand storing every blog in the database.
